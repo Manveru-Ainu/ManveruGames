@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -105,18 +105,18 @@
     </div>
   </header>
 
-  <p class="lead">Elige un juego para aprender y practicar inglés. Toca cualquier tarjeta para empezar a jugar.</p>
+  <p class="lead">Choose a game to learn and practice English. Tap any card to start playing.</p>
 
   <main class="grid" id="grid"></main>
 
   <!-- Barra para instalar (Android / escritorio) -->
   <div class="install" id="installBar">
-    <p id="installText">Instala <b>English Games</b> en este dispositivo para abrirla con su propio ícono, en pantalla completa.</p>
-    <button class="btn" id="installBtn">Instalar app</button>
+    <p id="installText">Install <b>English Games</b> on this device to open it with its own icon, in full screen.</p>
+    <button class="btn" id="installBtn">Install app</button>
   </div>
 
   <footer>
-    Hecho para Colegio Bilbao · Aprende inglés jugando
+    Made for Colegio Bilbao · Learn English by playing
   </footer>
 
 </div>
@@ -131,18 +131,17 @@
    - soon: true  -> aparece "Próximamente" (para juegos que aún no terminas)
    ======================================================================= */
 const GAMES = [
-  { title:"Maratón",          sub:"Trivia de inglés por niveles (A1–C2). IA y multijugador.", ico:"🏁", kind:"Mesa",   accent:"#ff6b6b", url:"https://manveru-ainu.github.io/maraton/" },
-  { title:"Turista Mundial",  sub:"Recorre el mundo respondiendo para avanzar por el tablero.", ico:"🧳", kind:"Mesa",   accent:"#4ecdc4", url:"https://manveru-ainu.github.io/turista-mundial/" },
-  { title:"Turista de Verbos",sub:"Tipo Monopoly: compra propiedades dominando los verbos.",    ico:"🎩", kind:"Mesa",   accent:"#c77dff", url:"https://manveru-ainu.github.io/turista-de-verbos/" },
-  { title:"Ajedrez con Quiz", sub:"Ajedrez multijugador: responde inglés para poder mover.",     ico:"♟️", kind:"Mesa",   accent:"#f4a261", url:"https://manveru-ainu.github.io/ajedrez/" },
-  { title:"Juegos de Cartas", sub:"Solitario, Póker (Texas Hold'em) y Blackjack en una app.",     ico:"🃏", kind:"Cartas", accent:"#ffd166", url:"https://manveru-ainu.github.io/cartas/" },
-  { title:"Bingo de Verbos",  sub:"Bingo con 80 verbos irregulares para todo el salón.",          ico:"🎱", kind:"Verbos", accent:"#06d6a0", url:"https://manveru-ainu.github.io/BingoVerbs/" },
-  { title:"UNO de Verbos",    sub:"UNO multijugador: tira carta y responde para conservarla.",     ico:"🎴", kind:"Verbos", accent:"#ef476f", url:"https://manveru-ainu.github.io/uno-verbos/" },
-  { title:"WordMatch",        sub:"Memorama de vocabulario: empareja las formas correctas.",       ico:"🧩", kind:"Memoria",accent:"#118ab2", url:"https://manveru-ainu.github.io/wordmatch/" },
+  { title:"Marathon",        sub:"English trivia by level (A1–C2). AI and multiplayer.",        ico:"🏁", kind:"Board",  accent:"#ff6b6b", url:"https://manveru-ainu.github.io/Marathon/" },
+  { title:"World Tourist",   sub:"Travel the world: answer correctly to move around the board.", ico:"🧳", kind:"Board",  accent:"#4ecdc4", url:"https://manveru-ainu.github.io/WorldTourist/" },
+  { title:"Chess Quiz",      sub:"Multiplayer chess: answer in English to make your move.",      ico:"♟️", kind:"Board",  accent:"#f4a261", url:"https://manveru-ainu.github.io/Chess/" },
+  { title:"Card Games",      sub:"Solitaire, Poker (Texas Hold'em) and Blackjack in one app.",   ico:"🃏", kind:"Cards",  accent:"#ffd166", url:"https://manveru-ainu.github.io/PlayingCards/" },
+  { title:"Verb Bingo",      sub:"Bingo with 80 irregular verbs for the whole class.",           ico:"🎱", kind:"Verbs",  accent:"#06d6a0", url:"https://manveru-ainu.github.io/Bingo/" },
+  { title:"Verb UNO",        sub:"Multiplayer UNO: play a card and answer to keep it.",          ico:"🎴", kind:"Verbs",  accent:"#ef476f", url:"https://manveru-ainu.github.io/uno/" },
+  { title:"WordMatch",       sub:"Vocabulary memory game: match the correct forms.",             ico:"🧩", kind:"Memory", accent:"#118ab2", url:"https://manveru-ainu.github.io/WordMatch/" },
 
   /* ---- Espacios para tus 2 juegos de mesa nuevos (cámbiales url y quita soon cuando estén) ---- */
-  { title:"Juego nuevo #9",   sub:"Tu próximo juego de mesa.",  ico:"🎲", kind:"Mesa", accent:"#8d99ae", url:"#", soon:true },
-  { title:"Juego nuevo #10",  sub:"Tu próximo juego de mesa.",  ico:"🗺️", kind:"Mesa", accent:"#8d99ae", url:"#", soon:true },
+  { title:"New game #9",     sub:"Your next board game.",  ico:"🎲", kind:"Board", accent:"#8d99ae", url:"#", soon:true },
+  { title:"New game #10",    sub:"Your next board game.",  ico:"🗺️", kind:"Board", accent:"#8d99ae", url:"#", soon:true },
 ];
 
 /* ---------- Render ---------- */
@@ -154,9 +153,9 @@ GAMES.forEach((g, i) => {
   if(!g.soon){ a.target = '_self'; }
   a.style.setProperty('--accent', g.accent);
   a.style.animationDelay = (0.04 * i) + 's';
-  a.setAttribute('aria-label', g.title + (g.soon ? ' (próximamente)' : ''));
+  a.setAttribute('aria-label', g.title + (g.soon ? ' (coming soon)' : ''));
   a.innerHTML = `
-    <span class="kind">${g.soon ? 'Próximamente' : g.kind}</span>
+    <span class="kind">${g.soon ? 'Coming soon' : g.kind}</span>
     <span class="ico">${g.ico}</span>
     <h2>${g.title}</h2>
     <p class="sub">${g.sub}</p>`;
@@ -187,7 +186,7 @@ installBtn.addEventListener('click', async () => {
 const isiOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
 const standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
 if(isiOS && !standalone){
-  installText.innerHTML = 'Para instalar en iPhone/iPad: toca <b>Compartir</b> ⬆️ y luego <b>“Agregar a inicio”</b>.';
+  installText.innerHTML = 'To install on iPhone/iPad: tap <b>Share</b> ⬆️ and then <b>“Add to Home Screen”</b>.';
   installBtn.style.display = 'none';
   bar.classList.add('show');
 }
