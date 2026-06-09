@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Colegio Bilbao · English Games</title>
+
+<!-- ===== PWA: instalable en iOS y Android ===== -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2d1b69">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="English Games">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" href="icon-192.png">
+
+<style>
+  :root{
+    --bg1:#1a1140; --bg2:#2d1b69; --bg3:#3a1d7a;
+    --ink:#ffffff; --ink-soft:rgba(255,255,255,.72); --ink-faint:rgba(255,255,255,.45);
+    --card:rgba(255,255,255,.06); --card-line:rgba(255,255,255,.12);
+    --gold:#ffd166;
+    --font: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Roboto, Arial, sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent;}
+  html,body{min-height:100%;}
+  body{
+    font-family:var(--font); color:var(--ink);
+    background:
+      radial-gradient(1100px 600px at 12% -8%, rgba(108,92,231,.55), transparent 60%),
+      radial-gradient(900px 600px at 100% 0%, rgba(255,99,132,.30), transparent 55%),
+      linear-gradient(160deg, var(--bg1), var(--bg2) 55%, var(--bg3));
+    background-attachment:fixed;
+    padding:max(20px, env(safe-area-inset-top)) 18px calc(40px + env(safe-area-inset-bottom));
+    overflow-x:hidden;
+  }
+  .wrap{max-width:1040px; margin:0 auto;}
+
+  /* ---------- Header ---------- */
+  header{display:flex; align-items:center; gap:16px; padding:8px 4px 4px; animation:drop .6s cubic-bezier(.2,.8,.2,1) both;}
+  .badge{
+    width:62px; height:62px; flex:0 0 auto; border-radius:20px;
+    background:linear-gradient(145deg,#6c5ce7,#2d1b69);
+    display:grid; place-items:center; font-size:30px;
+    box-shadow:0 10px 28px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.25);
+  }
+  .titles h1{font-size:clamp(22px,5vw,30px); font-weight:800; letter-spacing:-.3px; line-height:1.05;}
+  .titles p{color:var(--gold); font-weight:700; font-size:13px; letter-spacing:.14em; text-transform:uppercase; margin-top:5px;}
+
+  .lead{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:22px 4px 6px; max-width:60ch; animation:drop .6s .05s cubic-bezier(.2,.8,.2,1) both;}
+
+  /* ---------- Grid ---------- */
+  .grid{display:grid; gap:14px; margin-top:20px;
+    grid-template-columns:repeat(auto-fill, minmax(220px,1fr));}
+  .tile{
+    position:relative; display:block; text-decoration:none; color:var(--ink);
+    background:var(--card); border:1px solid var(--card-line); border-radius:22px;
+    padding:20px 18px 18px; min-height:148px; overflow:hidden;
+    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    animation:rise .5s cubic-bezier(.2,.8,.2,1) both;
+  }
+  .tile::before{content:""; position:absolute; inset:0 0 auto 0; height:5px;
+    background:var(--accent, var(--gold));}
+  .tile:hover, .tile:focus-visible{transform:translateY(-5px);
+    box-shadow:0 16px 36px rgba(0,0,0,.4); border-color:rgba(255,255,255,.28); outline:none;}
+  .tile:focus-visible{box-shadow:0 0 0 3px var(--gold), 0 16px 36px rgba(0,0,0,.4);}
+  .ico{font-size:38px; line-height:1; display:block;
+    filter:drop-shadow(0 4px 10px rgba(0,0,0,.4));}
+  .tile h2{font-size:18px; font-weight:800; margin-top:16px; letter-spacing:-.2px;}
+  .tile .sub{color:var(--ink-soft); font-size:13px; line-height:1.45; margin-top:5px;}
+  .kind{position:absolute; top:16px; right:16px; font-size:10px; font-weight:800;
+    letter-spacing:.1em; text-transform:uppercase; color:#1a1140;
+    background:var(--accent,var(--gold)); padding:4px 9px; border-radius:999px;}
+  .soon{opacity:.5; pointer-events:none;}
+  .soon .kind{background:rgba(255,255,255,.3); color:#fff;}
+
+  /* ---------- Install bar ---------- */
+  .install{display:none; align-items:center; gap:14px; flex-wrap:wrap;
+    margin:26px 4px 0; padding:16px 18px; border-radius:18px;
+    background:rgba(255,209,102,.12); border:1px solid rgba(255,209,102,.4);}
+  .install.show{display:flex;}
+  .install p{font-size:14px; color:var(--ink-soft); flex:1 1 240px; line-height:1.5;}
+  .install b{color:var(--gold);}
+  .btn{cursor:pointer; border:none; font-family:inherit; font-weight:800; font-size:14px;
+    color:#1a1140; background:var(--gold); padding:12px 20px; border-radius:12px;
+    transition:transform .12s ease, filter .12s ease;}
+  .btn:hover{filter:brightness(1.08); transform:translateY(-2px);}
+
+  footer{margin:34px 4px 0; color:var(--ink-faint); font-size:12px; line-height:1.6; text-align:center;}
+
+  @keyframes drop{from{opacity:0; transform:translateY(-12px);} to{opacity:1; transform:none;}}
+  @keyframes rise{from{opacity:0; transform:translateY(16px);} to{opacity:1; transform:none;}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="badge">🎮</div>
+    <div class="titles">
+      <h1>English Games</h1>
+      <p>Colegio Bilbao</p>
+    </div>
+  </header>
+
+  <p class="lead">Elige un juego para aprender y practicar inglés. Toca cualquier tarjeta para empezar a jugar.</p>
+
+  <main class="grid" id="grid"></main>
+
+  <!-- Barra para instalar (Android / escritorio) -->
+  <div class="install" id="installBar">
+    <p id="installText">Instala <b>English Games</b> en este dispositivo para abrirla con su propio ícono, en pantalla completa.</p>
+    <button class="btn" id="installBtn">Instalar app</button>
+  </div>
+
+  <footer>
+    Hecho para Colegio Bilbao · Aprende inglés jugando
+  </footer>
+
+</div>
+
+<script>
+/* =======================================================================
+   1) TU CATÁLOGO DE JUEGOS
+   Edita SOLO esta lista. Para cada juego pon su "url" real (el link de
+   GitHub Pages o Netlify donde ya está publicado ese juego).
+   - kind:  etiqueta corta que se muestra (Mesa / Cartas / Verbos…)
+   - accent: color de la franja superior de la tarjeta
+   - soon: true  -> aparece "Próximamente" (para juegos que aún no terminas)
+   ======================================================================= */
+const GAMES = [
+  { title:"Maratón",          sub:"Trivia de inglés por niveles (A1–C2). IA y multijugador.", ico:"🏁", kind:"Mesa",   accent:"#ff6b6b", url:"https://manveru-ainu.github.io/maraton/" },
+  { title:"Turista Mundial",  sub:"Recorre el mundo respondiendo para avanzar por el tablero.", ico:"🧳", kind:"Mesa",   accent:"#4ecdc4", url:"https://manveru-ainu.github.io/turista-mundial/" },
+  { title:"Turista de Verbos",sub:"Tipo Monopoly: compra propiedades dominando los verbos.",    ico:"🎩", kind:"Mesa",   accent:"#c77dff", url:"https://manveru-ainu.github.io/turista-de-verbos/" },
+  { title:"Ajedrez con Quiz", sub:"Ajedrez multijugador: responde inglés para poder mover.",     ico:"♟️", kind:"Mesa",   accent:"#f4a261", url:"https://manveru-ainu.github.io/ajedrez/" },
+  { title:"Juegos de Cartas", sub:"Solitario, Póker (Texas Hold'em) y Blackjack en una app.",     ico:"🃏", kind:"Cartas", accent:"#ffd166", url:"https://manveru-ainu.github.io/cartas/" },
+  { title:"Bingo de Verbos",  sub:"Bingo con 80 verbos irregulares para todo el salón.",          ico:"🎱", kind:"Verbos", accent:"#06d6a0", url:"https://manveru-ainu.github.io/BingoVerbs/" },
+  { title:"UNO de Verbos",    sub:"UNO multijugador: tira carta y responde para conservarla.",     ico:"🎴", kind:"Verbos", accent:"#ef476f", url:"https://manveru-ainu.github.io/uno-verbos/" },
+  { title:"WordMatch",        sub:"Memorama de vocabulario: empareja las formas correctas.",       ico:"🧩", kind:"Memoria",accent:"#118ab2", url:"https://manveru-ainu.github.io/wordmatch/" },
+
+  /* ---- Espacios para tus 2 juegos de mesa nuevos (cámbiales url y quita soon cuando estén) ---- */
+  { title:"Juego nuevo #9",   sub:"Tu próximo juego de mesa.",  ico:"🎲", kind:"Mesa", accent:"#8d99ae", url:"#", soon:true },
+  { title:"Juego nuevo #10",  sub:"Tu próximo juego de mesa.",  ico:"🗺️", kind:"Mesa", accent:"#8d99ae", url:"#", soon:true },
+];
+
+/* ---------- Render ---------- */
+const grid = document.getElementById('grid');
+GAMES.forEach((g, i) => {
+  const a = document.createElement('a');
+  a.className = 'tile' + (g.soon ? ' soon' : '');
+  a.href = g.soon ? '#' : g.url;
+  if(!g.soon){ a.target = '_self'; }
+  a.style.setProperty('--accent', g.accent);
+  a.style.animationDelay = (0.04 * i) + 's';
+  a.setAttribute('aria-label', g.title + (g.soon ? ' (próximamente)' : ''));
+  a.innerHTML = `
+    <span class="kind">${g.soon ? 'Próximamente' : g.kind}</span>
+    <span class="ico">${g.ico}</span>
+    <h2>${g.title}</h2>
+    <p class="sub">${g.sub}</p>`;
+  grid.appendChild(a);
+});
+
+/* ---------- PWA: instalar ---------- */
+const bar = document.getElementById('installBar');
+const installBtn = document.getElementById('installBtn');
+const installText = document.getElementById('installText');
+let deferredPrompt = null;
+
+// Android / Chrome de escritorio
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  bar.classList.add('show');
+});
+installBtn.addEventListener('click', async () => {
+  if(!deferredPrompt) return;
+  deferredPrompt.prompt();
+  await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  bar.classList.remove('show');
+});
+
+// iPhone / iPad (no soportan el botón: se instala desde el menú Compartir)
+const isiOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+const standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+if(isiOS && !standalone){
+  installText.innerHTML = 'Para instalar en iPhone/iPad: toca <b>Compartir</b> ⬆️ y luego <b>“Agregar a inicio”</b>.';
+  installBtn.style.display = 'none';
+  bar.classList.add('show');
+}
+
+// Registrar el service worker (necesario para instalar en Android)
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(()=>{});
+  });
+}
+</script>
+</body>
+</html>
