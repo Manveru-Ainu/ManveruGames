@@ -16,7 +16,7 @@
   // ---- Ajustes ----
   var MODE     = "footer";   // "footer" = al pie de página (no estorba) | "floating" = esquina flotante
   var LOGO_URL = "https://manveru-ainu.github.io/ManveruGames/manveru-logo.png";
-  var LABEL    = "Desarrollado por";
+  var LABEL    = "Developed by";
   var LINK     = "https://manveru-ainu.github.io/ManveruGames/"; // "" para que NO sea clic
   var FOOTER_LOGO_W   = 150;  // ancho del logo en el pie (px)
   var FLOATING_LOGO_W = 150;  // ancho del logo en modo flotante (px)
