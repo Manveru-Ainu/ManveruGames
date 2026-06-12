@@ -18,7 +18,7 @@
 <style>
   :root{
     --bg1:#1a1140; --bg2:#2d1b69; --bg3:#3a1d7a;
-    --ink:#ffffff; --ink-soft:rgba(255,255,255,.72); --ink-faint:rgba(255,255,255,.45);
+    --ink:#ffffff; --ink-soft:rgba(255,255,255,.84); --ink-faint:rgba(255,255,255,.6);
     --card:rgba(255,255,255,.06); --card-line:rgba(255,255,255,.12);
     --gold:#ffd166;
     --font: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Roboto, Arial, sans-serif;
@@ -132,13 +132,13 @@
    - soon: true  -> aparece "Próximamente" (para juegos que aún no terminas)
    ======================================================================= */
 const GAMES = [
-  { title:"Marathon",        sub:"English trivia by level (A1–C2). AI and multiplayer.",        ico:"🏁", kind:"Board",  accent:"#ff6b6b", url:"https://manveru-ainu.github.io/Marathon/" },
-  { title:"World Tourist",   sub:"Travel the world: answer correctly to move around the board.", ico:"🧳", kind:"Board",  accent:"#4ecdc4", url:"https://manveru-ainu.github.io/WorldTourist/" },
-  { title:"Chess Quiz",      sub:"Multiplayer chess: answer in English to make your move.",      ico:"♟️", kind:"Board",  accent:"#f4a261", url:"https://manveru-ainu.github.io/Chess/" },
-  { title:"Card Games",      sub:"Solitaire, Poker (Texas Hold'em) and Blackjack in one app.",   ico:"🃏", kind:"Cards",  accent:"#ffd166", url:"https://manveru-ainu.github.io/PlayingCards/" },
-  { title:"Verb Bingo",      sub:"Bingo with 80 irregular verbs for the whole class.",           ico:"🎱", kind:"Verbs",  accent:"#06d6a0", url:"https://manveru-ainu.github.io/Bingo/" },
-  { title:"Verb UNO",        sub:"Multiplayer UNO: play a card and answer to keep it.",          ico:"🎴", kind:"Verbs",  accent:"#ef476f", url:"https://manveru-ainu.github.io/uno/" },
-  { title:"WordMatch",       sub:"Vocabulary memory game: match the correct forms.",             ico:"🧩", kind:"Memory", accent:"#118ab2", url:"https://manveru-ainu.github.io/WordMatch/" },
+  { title:"Marathon",        sub:"English trivia by level (A1–C2). AI and multiplayer.",        ico:"🏁", kind:"Board",  accent:"#4f8ef7", url:"https://manveru-ainu.github.io/Marathon/" },
+  { title:"World Tourist",   sub:"Travel the world: answer correctly to move around the board.", ico:"🧳", kind:"Board",  accent:"#4f8ef7", url:"https://manveru-ainu.github.io/WorldTourist/" },
+  { title:"Chess Quiz",      sub:"Multiplayer chess: answer in English to make your move.",      ico:"♟️", kind:"Board",  accent:"#4f8ef7", url:"https://manveru-ainu.github.io/Chess/" },
+  { title:"Card Games",      sub:"Solitaire, Poker (Texas Hold'em) and Blackjack in one app.",   ico:"🃏", kind:"Cards",  accent:"#e8a93a", url:"https://manveru-ainu.github.io/PlayingCards/" },
+  { title:"Verb Bingo",      sub:"Bingo with 80 irregular verbs for the whole class.",           ico:"🎱", kind:"Verbs",  accent:"#2fb673", url:"https://manveru-ainu.github.io/Bingo/" },
+  { title:"Verb UNO",        sub:"Multiplayer UNO: play a card and answer to keep it.",          ico:"🎴", kind:"Verbs",  accent:"#2fb673", url:"https://manveru-ainu.github.io/uno/" },
+  { title:"WordMatch",       sub:"Vocabulary memory game: match the correct forms.",             ico:"🧩", kind:"Memory", accent:"#20b8c4", url:"https://manveru-ainu.github.io/WordMatch/" },
 
   /* ---- Espacios para tus 2 juegos de mesa nuevos (cámbiales url y quita soon cuando estén) ---- */
   { title:"New game #9",     sub:"Your next board game.",  ico:"🎲", kind:"Board", accent:"#8d99ae", url:"#", soon:true },
