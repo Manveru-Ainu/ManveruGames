@@ -1,6 +1,6 @@
 /* Service worker mínimo: cachea el menú para que abra rápido y sin conexión.
    Los juegos en sí (otros links) necesitan internet para el multijugador. */
-const CACHE = 'english-games-hub-v2';
+const CACHE = 'english-games-hub-v4';
 const SHELL = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', (e) => {
